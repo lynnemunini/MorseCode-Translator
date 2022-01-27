@@ -1,4 +1,4 @@
-text =  input("Enter a string: ")
+text =  input("Enter a string: ").upper()
 encrypted_text = ''
 morse_code_dict = { 
                     'A':'.-',
