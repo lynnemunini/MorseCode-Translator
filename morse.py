@@ -1,4 +1,6 @@
 text =  input("Enter a string: ").upper()
+
+### ENCRYPTION ###
 encrypted_text = ''
 morse_code_dict = { 
                     'A':'.-',
@@ -45,17 +47,24 @@ morse_code_dict = {
                     '(':'-.--.', 
                     ')':'-.--.-'
                     }
+encryptable = True
 
-for char in text:
-    if char == ' ':
-        encrypted_text += '  '
+while encryptable:
+    for char in text:                    
+        if char not in morse_code_dict.keys() and char != ' ':
+            print(f"You have entered a non-encryptable character {char}.")
+            encryptable = False 
+            break
     else:
-        # for key, value in morse_code_dict.items():     # Check dictionary for a match
-            if char in morse_code_dict.keys():
+        for char in text: 
+            if char == ' ':
+                encrypted_text += '  '               
+            elif char in morse_code_dict.keys():
                 code = morse_code_dict.get(char)
-                encrypted_text = encrypted_text + code + ' '
-            else:
-                print(f"You have entered a non-english character {char}.") 
+                encrypted_text = encrypted_text + code + ' '             
 
-print(encrypted_text)     
-print(len(encrypted_text))                                 
+    print(encrypted_text)    
+    encryptable = False 
+    # print(len(encrypted_text))
+
+### DECRYPTION ###
