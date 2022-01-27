@@ -1,7 +1,6 @@
 choice = input("Do you wish to Encrypt/Decrypt? ").capitalize()
 
 ### ENCRYPTION ###
-encrypted_text = ''
 morse_code_dict = { 
                     'A':'.-',
                     'B':'-...',
@@ -51,6 +50,7 @@ morse_code_dict = {
 if choice == "Encrypt": 
     text =  input("Enter some text: ").upper()                
     encryptable = True
+    encrypted_text = ''
 
     while encryptable:
         for char in text:                    
@@ -66,19 +66,19 @@ if choice == "Encrypt":
                     code = morse_code_dict.get(char)
                     encrypted_text = encrypted_text + code + ' '             
 
-        print(encrypted_text)    
-        encryptable = False 
+            print(encrypted_text)    
+            encryptable = False 
         # print(len(encrypted_text))
 
 ### DECRYPTION ###
 elif choice == "Decrypt":
     code = input("Enter Morse Code: ")
+    decryptable = True
     # String Split including spaces
     # morse_list = [i for j in code.split() for i in (j, ' ')][:-1]
     morse_list = code.split(" ")
     # print(morse_list)
     decrypted_text = ''
-
 
     # function to return key for any value
     def get_key(val):
@@ -87,17 +87,26 @@ elif choice == "Decrypt":
                 return key
     
         return "key doesn't exist"
-    # print(morse_code_dict.values())
-    for code_char in morse_list:
-        if code_char in morse_code_dict.values():
-            print(code_char)
-            key = get_key(code_char)
-            decrypted_text += key
-        elif code_char == '':
-            if decrypted_text[-1] == " ":
-                pass
-            else:
-                decrypted_text += ' '    
 
-    print(decrypted_text)
-    print(len(decrypted_text))
+    while decryptable:
+        for code_char in morse_list:                    
+            if code_char not in morse_code_dict.values() and code_char != '':
+                print(f"You have entered a non-decryptable character {code_char}.")
+                decryptable = False 
+                break
+
+
+        else:
+            for code_char in morse_list:
+                if code_char in morse_code_dict.values():
+                    # print(code_char)
+                    key = get_key(code_char)
+                    decrypted_text += key
+                elif code_char == '':
+                    if decrypted_text[-1] == " ":
+                        pass
+                    else:
+                        decrypted_text += ' '    
+
+            print(decrypted_text.title())
+            decryptable = False 
