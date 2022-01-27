@@ -72,4 +72,32 @@ if choice == "Encrypt":
 
 ### DECRYPTION ###
 elif choice == "Decrypt":
-    pass
+    code = input("Enter Morse Code: ")
+    # String Split including spaces
+    # morse_list = [i for j in code.split() for i in (j, ' ')][:-1]
+    morse_list = code.split(" ")
+    # print(morse_list)
+    decrypted_text = ''
+
+
+    # function to return key for any value
+    def get_key(val):
+        for key, value in morse_code_dict.items():
+            if val == value:
+                return key
+    
+        return "key doesn't exist"
+    # print(morse_code_dict.values())
+    for code_char in morse_list:
+        if code_char in morse_code_dict.values():
+            print(code_char)
+            key = get_key(code_char)
+            decrypted_text += key
+        elif code_char == '':
+            if decrypted_text[-1] == " ":
+                pass
+            else:
+                decrypted_text += ' '    
+
+    print(decrypted_text)
+    print(len(decrypted_text))
